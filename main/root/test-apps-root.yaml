@@ -12,7 +12,7 @@ spec:
     namespace: argocd
     name: in-cluster
   # all rootapps belong to master-project
-  project: main-project
+  project: argocd
   source:
     path: main/apps/test-apps
     repoURL: https://github.com/rumeshmega/gitops-argocd.git

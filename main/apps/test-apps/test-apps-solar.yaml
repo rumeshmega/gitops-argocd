@@ -11,7 +11,7 @@ spec:
     # default namespace where resources are created unless resource has metadata.namespace set
     namespace: solarapp
     name: in-cluster
-  project: test-apps
+  project: argocd
   source:
     path: resource-manifests/test-apps/solarapp
     directory:
