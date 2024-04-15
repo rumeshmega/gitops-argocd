@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-apps-solarapp
+  # all argoproj.io Application resources live in argocd namespace
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    # default namespace where resources are created unless resource has metadata.namespace set
+    namespace: solarapp
+    name: in-cluster
+  project: test-apps
+  source:
+    path: resource-manifests/test-apps/solarapp
+    directory:
+      recurse: true
+    repoURL: https://github.com/rumeshmega/gitops-argocd.git
+    targetRevision: HEAD

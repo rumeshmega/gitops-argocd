@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: test-apps
+  # all argoproj.io AppProject resources live in argocd namespace
+  namespace: argocd
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: >-
+    place for all test apps
+  sourceRepos:
+  - https://github.com/rumeshmega/gitops-argocd.git
+  # only allow apps to deploy to vitelity namespace
+  destinations:
+    - namespace: 'test-apps'
+      server: https://kubernetes.default.svc
+  # deny creation of certain namespace-scoped resources
+  clusterResourceWhitelist:
+    - group: ''
+      kind: ResourceQuota
+    - group: ''
+      kind: LimitRange
+    - group: ''
+      kind: NetworkPolicy

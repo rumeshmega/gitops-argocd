@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-apps-root
+  # all argoproj.io Application resources live in argocd namespace  
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    # all apps (or root) directly under this root go in argocd namespace
+    namespace: argocd
+    name: in-cluster
+  # all rootapps belong to master-project
+  project: main-project
+  source:
+    path: main/apps/test-apps
+    repoURL: https://github.com/rumeshmega/gitops-argocd.git
+    targetRevision: HEAD
